@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: denglei
 # @Date:   2018-03-01 11:45:13
-# @Last Modified by:   denglei
-# @Last Modified time: 2018-03-01 15:16:23
+# @Last Modified by:   denis
+# @Last Modified time: 2018-03-01 16:06:27
 
 
 """
@@ -90,7 +90,7 @@ class BinaryLogisticReg(object):
 		theta_grad = np.dot((a - y).T, x)           # 1xn
 		# add regularizer
 		reg_theta_grad = 2 * lambdaa * theta
-		theta_grad += reg_theta_grad
+		theta_grad[1:] += reg_theta_grad[1:]
 
 		return loss, theta_grad
 
