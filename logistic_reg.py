@@ -2,7 +2,7 @@
 # @Author: denglei
 # @Date:   2018-03-01 11:45:13
 # @Last Modified by:   denis
-# @Last Modified time: 2018-03-01 16:06:27
+# @Last Modified time: 2018-03-01 17:49:25
 
 
 """
@@ -22,11 +22,11 @@ a = g(z) = 1 / (1 + exp(-z))
 			如果y=0, 则j=1-a, 同理也是当a越接近真实的y, j都是减小的。
 m个样本： J(theta) = multiply j over 1 -> m;
 
-转换成对数形式的； J(theta) = -sum( y*log(a) + (1-y) * log(1-a) )
+转换成对数形式的； J(theta) = -sum( y*log(a) + (1-y) * log(1-a) ) / (2m)
 
 由于构建的代价函数是凸的，所以可以通过梯度降低优化方法： chain rule
 
-dJ/da =  y/a - (1-y)/(1 - a) = y/a - (1-y)/(1-a)
+dJ/da = [ y/a - (1-y)/(1 - a) = y/a - (1-y)/(1-a) ] 
 
 da/dz = a * (1 - a)
 
@@ -47,6 +47,14 @@ J_norm2 = lambda * sum(theta^2)       # 除去intercept的参数
 J = J_theta + J_norm2
 
 dJ/dtheta = (a-y)*x + 2 * lambda * theta
+
+
+# 分布式LR概念解析
+
+https://idash.ucsd.edu/sites/default/files/events/privacy_poster_wu.pdf
+
+# 并行LR逻辑流程图
+http://blog.csdn.net/zhoubl668/article/details/19612215
 
 """
 
@@ -72,6 +80,7 @@ class BinaryLogisticReg(object):
 		"""
 		计算损失以及theta的梯度
 		"""
+		# m = x.shape[0]
 		# linear combination
 		z = np.dot(x, theta.T)       # mx1
 
@@ -87,7 +96,7 @@ class BinaryLogisticReg(object):
 		loss += reg_loss
 
 		# graident by samples
-		theta_grad = np.dot((a - y).T, x)           # 1xn
+		theta_grad = np.dot((a - y).T, x)          # 1xn
 		# add regularizer
 		reg_theta_grad = 2 * lambdaa * theta
 		theta_grad[1:] += reg_theta_grad[1:]
