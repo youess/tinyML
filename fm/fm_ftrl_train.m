@@ -26,14 +26,13 @@ function [w0, w, v, min_x, max_x, loss] = fm_ftrl_train(X, y, ...
     X_norm = [ones([m 1]) X_norm];
     
     for ti = 1:iter_num
-        for mi = 1:m
-            fprintf('Iteration %d ', ti)
+        fprintf('Iteration %d ', ti)
+        fprintf(' v sum: %.3f ', sum(sum(v)))
+        for mi = 1:m    
         
             % 接收特征向量
             x = X_norm(mi, :).';
-            x_ = x(2:end);
-            
-            fprintf(' v sum: %.3f ', sum(sum(v)))            
+            x_ = x(2:end);           
             
             % 计算预测类别
             inter1 = v.' * x_; 
@@ -47,7 +46,6 @@ function [w0, w, v, min_x, max_x, loss] = fm_ftrl_train(X, y, ...
             yy = y(mi);
             
             loss = -yy .* log(a) - (1 - yy) .* log(1 - a);
-            fprintf(' Loss %.3f\n', loss)
             
             % 计算权重梯度
             dw0 = (a - yy);
@@ -115,6 +113,9 @@ function [w0, w, v, min_x, max_x, loss] = fm_ftrl_train(X, y, ...
             end
 
         end
+
+        fprintf(' Loss %.3f\n', loss)
+    
     end
 
 end
