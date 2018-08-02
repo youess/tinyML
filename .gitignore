@@ -7,3 +7,7 @@ data
 *.pyc
 
 .ipynb_checkpoints
+
+octave-workspace
+
+*.bin
