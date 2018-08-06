@@ -331,7 +331,7 @@ def show_build_path(bt):
 
         fig, ax = get_bg_fig(data)
         # centroid
-        add_scatter(ax, c, facecolors='b', edgecolors='none')
+        add_scatter(ax, c, s=centroid_size, facecolors='b', edgecolors='none')
         save_fig(fig, _fn())
 
         # centroid circle
@@ -340,22 +340,22 @@ def show_build_path(bt):
 
         fig, ax = get_bg_fig(data)
         # centroid
-        add_scatter(ax, c, facecolors='b', edgecolors='none')
+        add_scatter(ax, c, s=centroid_size, facecolors='b', edgecolors='none')
         save_fig(fig, _fn())
 
         # next point
-        add_scatter(ax, next_p, facecolors='r', edgecolors='none')
+        add_scatter(ax, next_p, s=centroid_size, facecolors='r', edgecolors='none')
         save_fig(fig, _fn())
 
         # next next point
-        add_scatter(ax, np_next, facecolors='g', edgecolors='none')
+        add_scatter(ax, np_next, s=centroid_size, facecolors='g', edgecolors='none')
         save_fig(fig, _fn())
 
         fig, ax = get_custom_layout()
         add_scatter(ax, data_a, s=default_size, facecolors='r', edgecolors='none', alpha=.3)
-        add_scatter(ax, next_p, facecolors='r', edgecolors='none')
+        add_scatter(ax, next_p, s=centroid_size, facecolors='r', edgecolors='none')
         add_scatter(ax, data_b, s=default_size, facecolors='g', edgecolors='none', alpha=.3)
-        add_scatter(ax, np_next, facecolors='g', edgecolors='none')
+        add_scatter(ax, np_next, s=centroid_size, facecolors='g', edgecolors='none')
         save_fig(fig, _fn())
 
     node = [bt.root]
@@ -432,6 +432,6 @@ if __name__ == "__main__":
     show_build_path(bt)
     # print("check the k nn:")
     # print([e.data for e in pq.queue])
-    cmd = "convert -delay 20 -loop 1 *.png bt.gif"
+    cmd = "convert -delay 40 -loop 1 *.png bt.gif"
     subprocess.call(cmd, shell=True)
 
